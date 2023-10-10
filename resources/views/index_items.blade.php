@@ -67,6 +67,9 @@
                     </td>
                     </tr>
                     @endforeach
+                    <div class="pagination">
+                        {{ $items->links() }}
+                    </div>
                 </tbody>
             </table>
         </div>

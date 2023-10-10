@@ -54,6 +54,9 @@
                     </td>
                     </tr>
                     @endforeach
+                    <div class="pagination">
+                        {{ $search_results->links() }}
+                    </div>
                 </tbody>
             </table>
         </div>

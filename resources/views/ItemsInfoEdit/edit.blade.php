@@ -36,6 +36,9 @@
                 </div>
             </div>
             @endforeach
+            <div class="pagination">
+                {{ $registered_item_informations->links() }}
+            </div>
         </div>
     </div>
 </x-app-layout>

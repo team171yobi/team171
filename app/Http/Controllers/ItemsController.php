@@ -108,17 +108,6 @@ class ItemsController extends Controller
     }
 
 
-    // public function rules1()
-    // {
-    //     return [
-    //         'name' => ['required',new DataTypeMatch('string', ':data_type_match')],//バリデーション、requiredは必須入力
-    //         'type' => ['required',new DataTypeMatch('smallInteger', ':data_type_match')],
-    //         'detail' => ['required|max:500',new DataTypeMatch('string', ':data_type_match')]
-    //     ];
-    // }
-
-
-
 //----------------------------show_each_item.blade.phpに関する関数------------------------------------------------------
 
     // 個別表示機能追加
@@ -146,12 +135,12 @@ class ItemsController extends Controller
         /**
      * 商品詳細・編集画面の表示（ProfileControllerを真似しつつ、Laravelの教科書を参考に作成。下枠の注意書きに注意）
      */
-    public function editorview($id)
+    public function editorview()
     {
         $choices = Category::all();
         $auth_users = User::all();//Usersテーブルの情報をデータベースのusersテーブルから全て取得
         $login_user = Auth::user();//ログインユーザー情報を取得
-        $registered_item_informations = Item::all()->paginate(2);
+        $registered_item_informations = Item::paginate(2);
         return view('ItemsInfoEdit.edit',compact('auth_users','login_user','registered_item_informations','choices'));
     }
     // ---------------------------------------------------------------------------------------------------------------------------
