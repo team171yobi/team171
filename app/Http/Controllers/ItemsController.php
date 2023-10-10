@@ -22,7 +22,7 @@ class ItemsController extends Controller
     {
         $choices = Category::all();
         $auth_users = User::all();//Usersテーブルの情報をデータベースのusersテーブルから全て取得
-        $items = Item::where('delete_flag', 0)->get();
+        $items = Item::where('delete_flag', 0)->paginate(10);
         //なんかデータベースからデータを取り出す方法はall()や上記以外にもめっちゃあるらしいです
         // おおきくSQLクエリビルダとEloquent ORMに分かれる。上やall()は後者
         //::where('条件をつける対応するマイグレーションファイルに対応するテーブルのカラム','条件')->get();
@@ -151,7 +151,7 @@ class ItemsController extends Controller
         $choices = Category::all();
         $auth_users = User::all();//Usersテーブルの情報をデータベースのusersテーブルから全て取得
         $login_user = Auth::user();//ログインユーザー情報を取得
-        $registered_item_informations = Item::all();
+        $registered_item_informations = Item::all()->paginate(2);
         return view('ItemsInfoEdit.edit',compact('auth_users','login_user','registered_item_informations','choices'));
     }
     // ---------------------------------------------------------------------------------------------------------------------------

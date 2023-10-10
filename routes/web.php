@@ -9,7 +9,7 @@ use App\Http\Controllers\AuthenticatedSessionController;
 use App\Http\Controllers\ErrorMessageController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\SearchController;
-use App\Http\Controllers\UsersController;
+use App\Http\Controllers\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -44,7 +44,7 @@ Route::get('/login/view',[AuthController::class,'showUserLoginPage'])->name('log
 Route::get('/register/view',[AuthController::class,'showUserRegisterPage'])->name('register_screen');
 
 //会員ですらない人が会員登録画面で一般会員「」登録をできるようにするルート（不具合がない場合、roleが0となるため）
-Route::post('/registered_users/members', [UsersController::class, 'store'])->name('members');
+Route::post('/registered_users/members', [UserController::class, 'store'])->name('members');
 
 //ログインしている状態に許されるルート設定ぽい
 // Route::middleware('auth')->group(function () {
