@@ -15,7 +15,7 @@ use App\Models\User;//<--User情報をデータベースのusersテーブルか�
 use App\Rules\DataTypeMatch;
 use Illuminate\Http\RedirectResponse as HttpRedirectResponse;
 
-class ItemsController extends Controller
+class ItemController extends Controller
 {//-------------------index_items.blade.phpに関する関数-----------------------------------
 //検索機能はSearchControllerに記述
     public function index()
@@ -140,7 +140,7 @@ class ItemsController extends Controller
         $choices = Category::all();
         $auth_users = User::all();//Usersテーブルの情報をデータベースのusersテーブルから全て取得
         $login_user = Auth::user();//ログインユーザー情報を取得
-        $registered_item_informations = Item::paginate(2);
+        $registered_item_informations = Item::paginate(5);
         return view('ItemsInfoEdit.edit',compact('auth_users','login_user','registered_item_informations','choices'));
     }
     // ---------------------------------------------------------------------------------------------------------------------------

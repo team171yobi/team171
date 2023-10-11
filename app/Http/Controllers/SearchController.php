@@ -18,7 +18,7 @@ class SearchController extends Controller
 public function SearchAndIndex(Request $request)
     {
         $choices = Category::all();
-        $items = Item::where('delete_flag', 0)->paginate(10);
+        $items = Item::where('delete_flag', 0)->get();
         $auth_users = User::all();//Usersテーブルの情報をデータベースのusersテーブルから全て取得
         $login_user = Auth::user();//ログインユーザー情報を取得
         $searchTerm = $request->input('searchTerm');
@@ -27,7 +27,7 @@ public function SearchAndIndex(Request $request)
         $search_results = Item::where('name', 'like', "%$searchTerm%")
                             ->orWhere('detail', 'like', "%$searchTerm%")
                             ->orWhere('type', 'like', "%$searchTerm%")
-                            ->paginate(10);//
+                            ->get();//->get()で一気に取得
         $count_search_results = Item::where('name', 'like', "%$searchTerm%")
                                 ->orWhere('detail', 'like', "%$searchTerm%")
                                 //orWhereはたぶんorだし、またはこれを検索結果に含めるの意味

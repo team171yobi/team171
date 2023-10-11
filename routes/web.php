@@ -2,7 +2,7 @@
 
 use App\Http\Controllers\Auth\AuthenticatedSessionController as AuthAuthenticatedSessionController;
 use App\Http\Controllers\AuthController;
-use App\Http\Controllers\ItemsController;
+use App\Http\Controllers\ItemController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthenticatedSessionController;
@@ -64,10 +64,10 @@ Route::group(['middleware' => ['auth', 'can:user-higher']], function () {
     Route::get('/dashboard', [HomeController::class,'showDashboard'])->middleware(['auth', 'verified'])->name('dashboard');
 
     //（一般）会員登録をした人が商品一覧画面を表示できるようにするためのルート設定
-    Route::get('/index/view',[ItemsController::class,'index'])->name('index_items.view');
+    Route::get('/index/view',[ItemController::class,'index'])->name('index_items.view');
 
     //（一般）会員登録をした人が商品登録画面を表示できるようにするためのルート設定
-    Route::get('/register/items/view',[ItemsController::class,'ShowItemsRegisterScreen'])->name('register_items.view');
+    Route::get('/register/items/view',[ItemController::class,'ShowItemsRegisterScreen'])->name('register_items.view');
 
     //一般会員登録がしてあったら、一般会員は情報を編集画面を表示・編集ができるようにするためのルート設定
     // メールアドレスはmigrationのunique()が効いて、他の人と同一の物にできない
@@ -77,7 +77,7 @@ Route::group(['middleware' => ['auth', 'can:user-higher']], function () {
     //検索結果を表示
     Route::post('/search', [SearchController::class,'SearchAndIndex'])->name('searched.items.index');
     //itemごとに個別表示
-    Route::get('items/show/{item}',[ItemsController::class,'ShowEachItem1'])->name('showeach.item.view');
+    Route::get('items/show/{item}',[ItemController::class,'ShowEachItem1'])->name('showeach.item.view');
     // Laravelではルート設定にパラメータ（数学と同じで媒介変数？、変わりうる値）を入れる場合、
     // パラメータ名を波括弧で囲むらしい
 });
@@ -88,15 +88,15 @@ Route::group(['middleware' => ['auth', 'can:admin-higher']], function() {
     //管理者アカウントのみ一般会員を削除できるためのルート設定
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
     //管理者アカウントのみ商品を登録することができるためのルート設定
-    Route::post('/register/items/post',[ItemsController::class,'store'])->name('register_items.post');
+    Route::post('/register/items/post',[ItemController::class,'store'])->name('register_items.post');
 
-    Route::get('/items/editorview/{item}', [ItemsController::class, 'editorview'])->name('items.editor.view');
+    Route::get('/items/editorview/{item}', [ItemController::class, 'editorview'])->name('items.editor.view');
 
-    Route::patch('/items/update/{item}', [ItemsController::class, 'update'])->name('items.info.update');
+    Route::patch('/items/update/{item}', [ItemController::class, 'update'])->name('items.info.update');
     //patchじゃなくてもputでもいいが、そのときはformの@method('patch')を@method('put')に統一
 
     // 商品一覧からの削除
-    Route::delete('items/destroy/{id}', [App\Http\Controllers\ItemsController::class, 'itemdestroy'])->name('item.destroy');
+    Route::delete('items/destroy/{id}', [App\Http\Controllers\ItemController::class, 'itemdestroy'])->name('item.destroy');
 
 });
 // この管理者以上は、ProvidersのAuthServiceProvider.phpに書かれた条件式に従う
